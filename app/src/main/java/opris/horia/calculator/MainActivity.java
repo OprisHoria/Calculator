@@ -30,4 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
         output.setText(result);
     }
+
+    public void calcButtonPressed(View v) {
+        EditText output = (EditText) findViewById(R.id.outputTxt);
+
+        switch (v.getId()) {
+            case R.id.no_1:
+                output.setText("1");
+                break;
+
+            case R.id.no_2:
+                output.setText("2");
+                break;
+
+        }
+
+    }
+
 }
