@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+    public String currentText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,27 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.no_1:
-                output.setText("1");
+                currentText += "1";
+                output.setText(currentText);
                 break;
 
             case R.id.no_2:
-                output.setText("2");
+                currentText += "2";
+                output.setText(currentText);
+                break;
+
+            case R.id.enterBtn:
+                int[] a = new int[currentText.length()];
+                int sum = 0;
+
+                for (int i = 0; i < a.length; i++) {
+                    a[i] = currentText.charAt(i);
+                    a[i] -= 48; // ASCII converter
+
+                    sum += a[i];
+                }
+
+                output.setText(Integer.toString(sum));
                 break;
 
         }
