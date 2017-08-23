@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    public String currentText = "";
+    static String currentText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +28,60 @@ public class MainActivity extends AppCompatActivity {
 
         String result = Integer.toString(c);
 
-
         output.setText(result);
     }
 
     public void calcButtonPressed(View v) {
         EditText output = (EditText) findViewById(R.id.outputTxt);
+        EditText useAsOut = (EditText) findViewById(R.id.input_2);
 
         switch (v.getId()) {
+            case R.id.no_0:
+                currentText += "0";
+                break;
+
             case R.id.no_1:
                 currentText += "1";
-                output.setText(currentText);
                 break;
 
             case R.id.no_2:
                 currentText += "2";
-                output.setText(currentText);
+                break;
+
+            case R.id.no_3:
+                currentText += "3";
+                break;
+
+            case R.id.no_4:
+                currentText += "4";
+                break;
+
+            case R.id.no_5:
+                currentText += "5";
+                break;
+
+            case R.id.no_6:
+                currentText += "6";
+                break;
+
+            case R.id.no_7:
+                currentText += "7";
+                break;
+
+            case R.id.no_8:
+                currentText += "8";
+                break;
+
+            case R.id.no_9:
+                currentText += "9";
+                break;
+
+            case R.id.minusBtn:
+                currentText += "-";
+                break;
+
+            case R.id.plusBtn:
+                currentText += "+";
                 break;
 
             case R.id.enterBtn:
@@ -57,11 +95,10 @@ public class MainActivity extends AppCompatActivity {
                     sum += a[i];
                 }
 
-                output.setText(Integer.toString(sum));
+                useAsOut.setText(Integer.toString(sum));
                 break;
-
         }
 
+        output.setText(currentText);
     }
-
 }
