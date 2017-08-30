@@ -88,52 +88,45 @@ public class MainActivity extends AppCompatActivity {
                 currentText += "+";
                 break;
 
-            case R.id.enterBtn:
+            case R.id.enterBtn: {
                 int[] a = new int[currentText.length()];
                 int sum = 0;
 
-                int nextIsPlus = 0;
-                int nextIsMinus = 0;
+                boolean nextIsPlus = false;
+                boolean nextIsMinus = false;
 
                 for (int i = 0; i < a.length; i++) {
                     a[i] = currentText.charAt(i);
 
                     switch (a[i]) {
+                        case '+':
+                            nextIsPlus = true;
+                            break;
 
-
-                        // +
-                        case 43: {
-                            nextIsPlus = 1;
-                        }
-                        break;
-
-                        // -
-                        case 45: {
-                            nextIsMinus = 1;
-                        }
-                        break;
+                        case '-':
+                            nextIsMinus = true;
+                            break;
 
                         // default is number so convert it to a number
                         default: {
-
-                            if (nextIsPlus == 1) {
-                                nextIsPlus = 0;
+                            if (nextIsPlus) {
+                                nextIsPlus = false;
 
                                 sum += getNumberFromAscii(a[i]);
-                            } else if (nextIsMinus == 1) {
+                            } else if (nextIsMinus) {
                                 sum -= getNumberFromAscii(a[i]);
 
                             } else {
                                 sum = getNumberFromAscii(a[i]);
                             }
-
                         }
                         break;
                     }
                 }
 
                 useAsOut.setText(Integer.toString(sum));
-                break;
+            }
+            break;
         }
 
         output.setText(currentText);
