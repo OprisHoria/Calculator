@@ -8,6 +8,10 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     static String currentText = "";
 
+    static int getNumberFromAscii(int Ascii) {
+        return Ascii - 48;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +92,44 @@ public class MainActivity extends AppCompatActivity {
                 int[] a = new int[currentText.length()];
                 int sum = 0;
 
+                int nextIsPlus = 0;
+                int nextIsMinus = 0;
+
                 for (int i = 0; i < a.length; i++) {
                     a[i] = currentText.charAt(i);
-                    a[i] -= 48; // ASCII converter
 
-                    sum += a[i];
+                    switch (a[i]) {
+
+
+                        // +
+                        case 43: {
+                            nextIsPlus = 1;
+                        }
+                        break;
+
+                        // -
+                        case 45: {
+                            nextIsMinus = 1;
+                        }
+                        break;
+
+                        // default is number so convert it to a number
+                        default: {
+
+                            if (nextIsPlus == 1) {
+                                nextIsPlus = 0;
+
+                                sum += getNumberFromAscii(a[i]);
+                            } else if (nextIsMinus == 1) {
+                                sum -= getNumberFromAscii(a[i]);
+
+                            } else {
+                                sum = getNumberFromAscii(a[i]);
+                            }
+
+                        }
+                        break;
+                    }
                 }
 
                 useAsOut.setText(Integer.toString(sum));
@@ -101,4 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
         output.setText(currentText);
     }
+
+
 }
