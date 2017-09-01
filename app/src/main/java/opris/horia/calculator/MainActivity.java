@@ -100,42 +100,61 @@ public class MainActivity extends AppCompatActivity {
         int[] a = new int[currentText.length()];
         int sum = 0;
 
-        boolean nextIsPlus = false;
-        boolean nextIsMinus = false;
+        int[] helperInt = new int[currentText.length()];
+        String[] helperString = new String[currentText.length()];
 
-        //String helperString = "";
+        for (int i = 0; i < currentText.length(); i++)
+            helperString[i] = "";
+
+        int helpIndex = 0;
 
         for (int i = 0; i < a.length; i++) {
             a[i] = currentText.charAt(i);
 
             switch (a[i]) {
                 case '+':
-                    nextIsPlus = true;
+                    helpIndex++;
                     break;
 
                 case '-':
-                    nextIsMinus = true;
+                    helpIndex++;
                     break;
 
                 // default is number or group of numbers
                 default: {
-                    if (nextIsPlus) {
-                        nextIsPlus = false;
-
-                        sum += getNumberFromAscii(a[i]);
-                    } else if (nextIsMinus) {
-                        sum -= getNumberFromAscii(a[i]);
-
-                    } else {
-                        sum = getNumberFromAscii(a[i]);
-                    }
+                    helperString[helpIndex] += currentText.charAt(i);
                 }
                 break;
             }
         }
 
-        useAsOut.setText(Integer.toString(sum));
+        for (int i = 0; i <= helpIndex; i++)
+            helperInt[i] = Integer.parseInt(helperString[i]);
+
+        int finalResult = 0;
+        int trackHelper = 0;
+
+        finalResult += helperInt[trackHelper];
+
+        trackHelper++;
+
+        for (int i = 0; i < a.length; i++) {
+            switch (a[i]) {
+                case '+':
+                    finalResult += helperInt[trackHelper];
+                    trackHelper++;
+                    break;
+
+                case '-':
+                    finalResult -= helperInt[trackHelper];
+                    trackHelper++;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        useAsOut.setText(Integer.toString(finalResult));
     }
-
-
 }
