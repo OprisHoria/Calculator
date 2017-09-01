@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void calcButtonPressed(View v) {
         EditText output = (EditText) findViewById(R.id.outputTxt);
-        EditText useAsOut = (EditText) findViewById(R.id.input_2);
 
         switch (v.getId()) {
             case R.id.no_0:
@@ -88,48 +87,54 @@ public class MainActivity extends AppCompatActivity {
                 currentText += "+";
                 break;
 
-            case R.id.enterBtn: {
-                int[] a = new int[currentText.length()];
-                int sum = 0;
-
-                boolean nextIsPlus = false;
-                boolean nextIsMinus = false;
-
-                for (int i = 0; i < a.length; i++) {
-                    a[i] = currentText.charAt(i);
-
-                    switch (a[i]) {
-                        case '+':
-                            nextIsPlus = true;
-                            break;
-
-                        case '-':
-                            nextIsMinus = true;
-                            break;
-
-                        // default is number so convert it to a number
-                        default: {
-                            if (nextIsPlus) {
-                                nextIsPlus = false;
-
-                                sum += getNumberFromAscii(a[i]);
-                            } else if (nextIsMinus) {
-                                sum -= getNumberFromAscii(a[i]);
-
-                            } else {
-                                sum = getNumberFromAscii(a[i]);
-                            }
-                        }
-                        break;
-                    }
-                }
-
-                useAsOut.setText(Integer.toString(sum));
-            }
-            break;
+            case R.id.enterBtn:
+                calcOnEnter();
+                break;
         }
 
         output.setText(currentText);
+    }
+
+    private void calcOnEnter() {
+        EditText useAsOut = (EditText) findViewById(R.id.input_2);
+        int[] a = new int[currentText.length()];
+        int sum = 0;
+
+        boolean nextIsPlus = false;
+        boolean nextIsMinus = false;
+
+        //String helperString = "";
+
+        for (int i = 0; i < a.length; i++) {
+            a[i] = currentText.charAt(i);
+
+            switch (a[i]) {
+                case '+':
+                    nextIsPlus = true;
+                    break;
+
+                case '-':
+                    nextIsMinus = true;
+                    break;
+
+                // default is number or group of numbers
+                default: {
+                    if (nextIsPlus) {
+                        nextIsPlus = false;
+
+                        sum += getNumberFromAscii(a[i]);
+                    } else if (nextIsMinus) {
+                        sum -= getNumberFromAscii(a[i]);
+
+                    } else {
+                        sum = getNumberFromAscii(a[i]);
+                    }
+                }
+                break;
+            }
+        }
+
+        useAsOut.setText(Integer.toString(sum));
     }
 
 
