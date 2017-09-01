@@ -96,57 +96,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calcOnEnter() {
-        EditText useAsOut = (EditText) findViewById(R.id.input_2);
-        int[] a = new int[currentText.length()];
-        int sum = 0;
-
-        int[] helperInt = new int[currentText.length()];
-        String[] helperString = new String[currentText.length()];
+        String[] operandsGroupedString = new String[currentText.length()];
+        int[] operators = new int[currentText.length()];
 
         for (int i = 0; i < currentText.length(); i++)
-            helperString[i] = "";
+            operandsGroupedString[i] = "";
 
         int helpIndex = 0;
 
-        for (int i = 0; i < a.length; i++) {
-            a[i] = currentText.charAt(i);
+        /* group numbers together */
+        for (int i = 0; i < currentText.length(); i++) {
+            int[] character = new int[currentText.length()];
+            character[i] = currentText.charAt(i);
 
-            switch (a[i]) {
-                case '+':
-                    helpIndex++;
-                    break;
-
-                case '-':
-                    helpIndex++;
-                    break;
-
-                // default is number or group of numbers
-                default: {
-                    helperString[helpIndex] += currentText.charAt(i);
-                }
-                break;
-            }
+            if ((character[i] >= '0') && (character[i] <= '9'))
+                operandsGroupedString[helpIndex] += getNumberFromAscii(character[i]);
+            else
+                operators[helpIndex++] = character[i];
         }
 
+        /* From now on operands are grouped and usable for calculations */
+        int[] operandsGroupedInt = new int[currentText.length()];
         for (int i = 0; i <= helpIndex; i++)
-            helperInt[i] = Integer.parseInt(helperString[i]);
+            operandsGroupedInt[i] = Integer.parseInt(operandsGroupedString[i]);
 
-        int finalResult = 0;
         int trackHelper = 0;
+        int finalResult = operandsGroupedInt[trackHelper++];
 
-        finalResult += helperInt[trackHelper];
-
-        trackHelper++;
-
-        for (int i = 0; i < a.length; i++) {
-            switch (a[i]) {
+        for (int i = 0; i < operators.length; i++) {
+            switch (operators[i]) {
                 case '+':
-                    finalResult += helperInt[trackHelper];
+                    finalResult += operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 
                 case '-':
-                    finalResult -= helperInt[trackHelper];
+                    finalResult -= operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 
@@ -155,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        useAsOut.setText(Integer.toString(finalResult));
+        outputResult(finalResult);
     }
+
+    private void outputResult(int result) {
+        EditText useAsOut = (EditText) findViewById(R.id.input_2);
+        useAsOut.setText(Integer.toString(result));
+    }
+
 }
