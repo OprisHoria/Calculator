@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         int helpIndex = 0;
 
-        /* group numbers together */
+        /* separate operands from operators */
         for (int i = 0; i < currentText.length(); i++) {
             int[] character = new int[currentText.length()];
             character[i] = currentText.charAt(i);
@@ -115,23 +115,26 @@ public class MainActivity extends AppCompatActivity {
                 operators[helpIndex++] = character[i];
         }
 
-        /* From now on operands are grouped and usable for calculations */
+        outputResult(getCalculationResult(operandsGroupedString, operators, helpIndex));
+    }
+
+    private int getCalculationResult(String[] operandsString, int[] operators, int helpIndex) {
         int[] operandsGroupedInt = new int[currentText.length()];
         for (int i = 0; i <= helpIndex; i++)
-            operandsGroupedInt[i] = Integer.parseInt(operandsGroupedString[i]);
+            operandsGroupedInt[i] = Integer.parseInt(operandsString[i]);
 
         int trackHelper = 0;
-        int finalResult = operandsGroupedInt[trackHelper++];
+        int calculationsResult = operandsGroupedInt[trackHelper++];
 
         for (int i = 0; i < operators.length; i++) {
             switch (operators[i]) {
                 case '+':
-                    finalResult += operandsGroupedInt[trackHelper];
+                    calculationsResult += operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 
                 case '-':
-                    finalResult -= operandsGroupedInt[trackHelper];
+                    calculationsResult -= operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 
@@ -140,12 +143,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        outputResult(finalResult);
+        return calculationsResult;
     }
 
     private void outputResult(int result) {
         EditText useAsOut = (EditText) findViewById(R.id.input_2);
         useAsOut.setText(Integer.toString(result));
     }
-
 }
