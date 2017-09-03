@@ -87,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 currentText += "+";
                 break;
 
+            case R.id.multiplyBtn:
+                currentText += "*";
+                break;
+
             case R.id.enterBtn:
                 calcOnEnter();
                 break;
@@ -135,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
                 case '-':
                     calculationsResult -= operandsGroupedInt[trackHelper];
+                    trackHelper++;
+                    break;
+
+                case '*':
+                    calculationsResult *= operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 

@@ -215,11 +215,12 @@
         app:layout_constraintLeft_toRightOf="@+id/button9" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/multiplyBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
+        android:onClick="calcButtonPressed"
         android:text="*"
         app:layout_constraintBottom_toTopOf="@+id/no_9"
         app:layout_constraintLeft_toRightOf="@+id/button11" />
@@ -233,7 +234,7 @@
         android:onClick="calcButtonPressed"
         android:text="-"
         app:layout_constraintBottom_toTopOf="@+id/no_9"
-        app:layout_constraintLeft_toRightOf="@+id/button12" />
+        app:layout_constraintLeft_toRightOf="@+id/multiplyBtn" />
 
     <Button
         android:id="@+id/plusBtn"
