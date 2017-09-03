@@ -19,20 +19,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        EditText input_1 = (EditText) findViewById(R.id.input_1);
         EditText input_2 = (EditText) findViewById(R.id.input_2);
         EditText output = (EditText) findViewById(R.id.outputTxt);
 
-        /* Convert strings to ints */
-        int a = Integer.parseInt(input_1.getText().toString());
-        int b = Integer.parseInt(input_2.getText().toString());
 
-        /* Perform an addition */
-        int c = a + b;
-
-        String result = Integer.toString(c);
-
-        output.setText(result);
     }
 
     public void calcButtonPressed(View v) {
@@ -91,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
                 currentText += "*";
                 break;
 
+            case R.id.divideBtn:
+                currentText += "/";
+                break;
+
+            case R.id.cancelBtn:
+                currentText = "";
+                break;
+
             case R.id.enterBtn:
                 calcOnEnter();
                 break;
@@ -144,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
                 case '*':
                     calculationsResult *= operandsGroupedInt[trackHelper];
+                    trackHelper++;
+                    break;
+
+                case '/':
+                    calculationsResult /= operandsGroupedInt[trackHelper];
                     trackHelper++;
                     break;
 
